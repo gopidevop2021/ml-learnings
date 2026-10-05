@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Car MPG Prediction</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="overlay">
+
+        <div class="prediction-card">
+
+            <h1>Car MPG Prediction</h1>
+
+            <p class="subtitle">
+                Enter car specifications to predict Mileage (MPG)
+            </p>
+
+            <form action="/predict" method="POST">
+
+                <!-- Horse Power -->
+                <label for="hp">Horse Power (HP)</label>
+
+                <input
+                    type="number"
+                    id="hp"
+                    name="hp"
+                    step="any"
+                    required
+                    value="{{ hp if hp else '' }}"
+                >
+
+
+                <!-- Volume -->
+                <label for="vol">Volume (VOL)</label>
+
+                <input
+                    type="number"
+                    id="vol"
+                    name="vol"
+                    step="any"
+                    required
+                    value="{{ vol if vol else '' }}"
+                >
+
+
+                <!-- Speed -->
+                <label for="sp">Speed (SP)</label>
+
+                <input
+                    type="number"
+                    id="sp"
+                    name="sp"
+                    step="any"
+                    required
+                    value="{{ sp if sp else '' }}"
+                >
+
+
+                <!-- Weight -->
+                <label for="wt">Weight (WT)</label>
+
+                <input
+                    type="number"
+                    id="wt"
+                    name="wt"
+                    step="any"
+                    required
+                    value="{{ wt if wt else '' }}"
+                >
+
+
+                <!-- Predict -->
+                <button type="submit" class="predict-btn">
+                    Predict MPG
+                </button>
+
+            </form>
+
+
+            <!-- Prediction result -->
+
+            {% if prediction is defined %}
+
+            <div class="result">
+
+                <h2>Predicted Mileage</h2>
+
+                <div class="mpg-value">
+                    {{ prediction }} MPG
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- Clear -->
+
+            <button
+                type="button"
+                class="clear-btn"
+                onclick="clearForm()">
+
+                Clear
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function clearForm() {
+
+            document.querySelector("form").reset();
+
+            const result = document.querySelector(".result");
+
+            if (result) {
+                result.style.display = "none";
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
